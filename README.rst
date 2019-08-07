@@ -3,6 +3,8 @@ pytest-flask
 
 |PyPI version| |conda-forge version| |Python versions| |Documentation status|
 
+Forked to run socketio's server rather than app.run for websocket tests.
+
 An extension of `pytest <http://pytest.org/>`__ test runner which
 provides a set of useful tools to simplify testing and development
 of the Flask extensions and applications.
