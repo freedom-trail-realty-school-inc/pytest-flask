@@ -64,7 +64,7 @@ class LiveServer(object):
     def start(self):
         """Start application in a separate process."""
         def worker(app, host, port):
-            app.socketio.run(host=host, port=port, use_reloader=False, threaded=True)
+            app.socketio.run(app=app, host=host, port=port, use_reloader=False)
         self._process = multiprocessing.Process(
             target=worker,
             args=(self.app, self.host, self.port)
@@ -149,9 +149,9 @@ def live_server(request, app, monkeypatch, pytestconfig):
 
     # Explicitly set application ``SERVER_NAME`` for test suite
     # and restore original value on test teardown.
-    server_name = app.config['SERVER_NAME'] or 'localhost'
+    server_name = app.config['SERVER_NAME'] or '127.0.0.1'
     monkeypatch.setitem(app.config, 'SERVER_NAME',
-                        _rewrite_server_name(server_name, str(port)))
+                        ('127.0.0.1:' + str(port)))
 
     clean_stop = request.config.getvalue('live_server_clean_stop')
     server = LiveServer(app, host, port, clean_stop)
