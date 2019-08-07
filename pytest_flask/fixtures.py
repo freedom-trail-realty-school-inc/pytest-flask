@@ -64,7 +64,7 @@ class LiveServer(object):
     def start(self):
         """Start application in a separate process."""
         def worker(app, host, port):
-            app.run(host=host, port=port, use_reloader=False, threaded=True)
+            app.socketio.run(host=host, port=port, use_reloader=False, threaded=True)
         self._process = multiprocessing.Process(
             target=worker,
             args=(self.app, self.host, self.port)
